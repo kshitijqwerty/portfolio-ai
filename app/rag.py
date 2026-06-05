@@ -17,7 +17,7 @@ import uuid
 import numpy as np
 from qdrant_client import AsyncQdrantClient
 from qdrant_client.models import Distance, VectorParams
-from sentence_transformers import SentenceTransformer
+from sentence_transformers import CrossEncoder, SentenceTransformer
 
 from app.config import settings
 
@@ -26,6 +26,7 @@ class RAGEngine:
     def __init__(self) -> None:
         self._client: Optional[AsyncQdrantClient] = None
         self._embedder: Optional[SentenceTransformer] = None
+        self._reranker: Optional[CrossEncoder] = None
 
     async def connect(self) -> None:
         self._client = AsyncQdrantClient(
@@ -53,6 +54,23 @@ class RAGEngine:
             settings.embedding_model,
             device="cpu",
         )
+
+    def load_reranker(self) -> None:
+        if settings.rerank_enabled:
+            self._reranker = CrossEncoder(
+                settings.rerank_model,
+                device="cpu",
+            )
+
+    def rerank(self, query: str, results: list[dict]) -> list[dict]:
+        if not self._reranker or not results:
+            return results
+        pairs = [(query, r["text"]) for r in results]
+        scores = self._reranker.predict(pairs)
+        for r, s in zip(results, scores):
+            r["score"] = float(s)
+        results.sort(key=lambda x: x["score"], reverse=True)
+        return results
 
     def embed(self, text: str) -> np.ndarray:
         return self._embedder.encode(text, normalize_embeddings=True)

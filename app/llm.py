@@ -2,11 +2,12 @@
 llama.cpp HTTP client with SSE streaming support.
 
 llama.cpp server exposes an OpenAI-compatible /v1/chat/completions endpoint.
-We send proper message objects and let the server apply the chat template —
-this avoids the double-wrapping bug that causes gibberish.
+We send full message arrays (system + history + user) and let the server
+apply the chat template — this avoids double-wrapping and enables
+conversation memory.
 
-RAM note: we use httpx for async HTTP. The client is stateless — the ~900 MB
-RAM footprint lives in the llama.cpp server process, not in this Python process.
+RAM note: we use httpx for async HTTP. The client is stateless — the
+~filestore RAM footprint lives in the llama.cpp server process.
 """
 
 from __future__ import annotations
@@ -28,21 +29,23 @@ class LLMClient:
         await self._client.aclose()
 
     async def generate_stream(
-        self, system_prompt: str, question: str
+        self, messages: list[dict]
     ) -> AsyncGenerator[str, None]:
         """
         Send a chat completion request with stream=True and yield tokens
         as they arrive from the SSE stream.
 
-        Messages are sent as proper role objects so the llama.cpp server
-        applies the correct chat template. Sampling params keep the 0.5B
-        model on track and prevent repetition loops.
+        `messages` must follow the OpenAI message format:
+            [{"role": "system", "content": "..."},
+             {"role": "user", "content": "..."},
+             {"role": "assistant", "content": "..."},
+             {"role": "user", "content": "current question"}]
+
+        The caller is responsible for including system prompt, conversation
+        history, and the current user question.
         """
         payload = {
-            "messages": [
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": question},
-            ],
+            "messages": messages,
             "stream": True,
             "max_tokens": settings.max_tokens,
             "temperature": settings.temperature,
@@ -74,9 +77,9 @@ class LLMClient:
                 if token:
                     yield token
 
-    async def generate(self, system_prompt: str, question: str) -> str:
+    async def generate(self, messages: list[dict]) -> str:
         """Non-streaming variant — collects the full response."""
         tokens = []
-        async for token in self.generate_stream(system_prompt, question):
+        async for token in self.generate_stream(messages):
             tokens.append(token)
         return "".join(tokens)

@@ -31,11 +31,11 @@ services:
     # --mlock requires IPC_LOCK to pin model RAM and prevent swapping
     cap_add:
       - IPC_LOCK
-    # Clamp memory usage
+    # Clamp memory usage (Qwen2.5-3B Q4_K_M ~1.8 GB + KV cache)
     deploy:
       resources:
         limits:
-          memory: 950M
+          memory: 2500M
     command: >
       -m /models/model.gguf
       -c 2048

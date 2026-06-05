@@ -26,17 +26,23 @@ class Settings(BaseSettings):
     # RAG
     rag_top_k: int = 5
     rag_diverse_pool_size: int = 15  # fetch N, then pick diverse subset
+    rag_min_score: float = 0.3       # skip LLM if top chunk scores below this
 
-    # Sampling (prevents gibberish from 0.5B models)
+    # Cross-encoder reranking
+    rerank_enabled: bool = True
+    rerank_model: str = "cross-encoder/ms-marco-MiniLM-L-6-v2"
+
+    # Conversation memory
+    memory_max_exchanges: int = 3
+    memory_session_ttl: int = 3600  # 1 hour cookie + Redis TTL
+
+    # Sampling
     temperature: float = 0.1
     repeat_penalty: float = 1.15
     top_p: float = 0.9
     top_k: int = 40
     min_p: float = 0.05
     max_tokens: int = 512
-
-    # RAG relevance — skip LLM if top chunk scores below this
-    rag_min_score: float = 0.3
 
     # CORS
     cors_origin: str = "https://kgup.me"
