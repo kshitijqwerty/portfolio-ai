@@ -1,0 +1,86 @@
+[
+  {
+    "id": "personal",
+    "text": "Name: Kshitij Gupta\nLocation: New Delhi, India\nEmail: kg747@proton.me\nPhone: +91 99100-36076\nWebsite: kgup.me\nBlog: dev.to/kgup\nGitHub: github.com/kshitijqwerty\nLinkedIn: linkedin.com/in/horz7\nStatus: Open to remote worldwide",
+    "section": "Personal",
+    "title": "Contact & Links"
+  },
+  {
+    "id": "summary",
+    "text": "ML Engineer with ~6 years experience (4 years production) across computer vision, generative AI, and cloud-native MLOps. Shipped end-to-end pipelines from sub-5MB on-device TFLite models to Kubernetes inference clusters on GCP & Azure serving Fortune-500 clients.",
+    "section": "Summary",
+    "title": "Professional Summary"
+  },
+  {
+    "id": "education-mtech",
+    "text": "M.Tech Computer Science — IIIT Hyderabad (Aug 2021 – May 2023)\nSubjects: NLP, Statistical AI, Distributed Systems, Blockchains, Neural & Cognitive Modelling\nAchievement: Dean's List",
+    "section": "Education",
+    "title": "M.Tech — IIIT Hyderabad"
+  },
+  {
+    "id": "education-btech",
+    "text": "B.Tech Computer Science — IIIT Delhi (Aug 2015 – May 2019)\nSubjects: Computer Vision, Machine Learning, GPU Computing, Image Analysis",
+    "section": "Education",
+    "title": "B.Tech — IIIT Delhi"
+  },
+  {
+    "id": "skills",
+    "text": "Languages: Python, C, C++, JavaScript, TypeScript\nAI/ML: PyTorch, OpenCV, Scikit-Learn, ONNX, TFLite, Triton Inference Server\nLLM/RAG: LangChain, Qdrant, RAGAS, LLM-as-judge, Sentence Transformers, Groq, OpenAI, Anthropic\nWeb: FastAPI, Django, Flask, Node.js, React.js, Next.js, Electron.js\nCloud/MLOps: Docker, Kubernetes, KServe, GCP, Azure, Proxmox, GitHub Actions, CI/CD\nDB: PostgreSQL, ChromaDB",
+    "section": "Skills",
+    "title": "Technical Skills"
+  },
+  {
+    "id": "exp-cars24",
+    "text": "CARS24 — ML Engineer | Gurgaon | June 2024 – June 2025\n- End-to-end Image Validation Pipeline (KServe + Triton on GCP Kubernetes) — cut inspection time 20-30 min/vehicle\n- On-device TFLite model <5MB for part classification & pose detection (offline Android inference)\n- Underbody oil-leak detection module for damage-estimation pipeline\n- Full MLOps lifecycle: CVAT annotation → dataset versioning → training → cloud deployment",
+    "section": "Experience",
+    "title": "CARS24 — ML Engineer"
+  },
+  {
+    "id": "exp-typeface",
+    "text": "Typeface India — Software Engineer | Hyderabad | July 2023 – March 2024\n- Generative image features for LG, Marks & Spencer, Ford (Fortune-500)\n- Integrated Stable Diffusion, Google ImageGen, DALL-E\n- Pipelines: scene generation, inpainting, outpainting, colour-palette extraction, style-transfer\n- High-availability inference on Azure & GCP",
+    "section": "Experience",
+    "title": "Typeface India — Software Engineer"
+  },
+  {
+    "id": "exp-ttdsoft",
+    "text": "ttdsoft — Software Engineer (Founding) | New Delhi | May 2020 – June 2021\n- Cross-platform DRM suite (Windows, macOS, Android): ePendrive, Secure Browser, encrypted video player\n- Node.js licensing & encryption API; self-hosted bare-metal, zero cloud spend",
+    "section": "Experience",
+    "title": "ttdsoft — Software Engineer (Founding)"
+  },
+  {
+    "id": "exp-mirrorsize",
+    "text": "MirrorSize US Inc. — AI Engineer | New Delhi | May 2019 – June 2020\n- Mask R-CNN person-segmentation pipeline for body-measurement estimation from single images",
+    "section": "Experience",
+    "title": "MirrorSize US Inc. — AI Engineer"
+  },
+  {
+    "id": "project-eval-harness",
+    "text": "LLM Eval Harness\nStack: Python, FastAPI, ChromaDB, PostgreSQL, GitHub Actions\nYAML-driven eval pipeline for RAG/agentic LLMs. 4 providers (Ollama, Groq, OpenAI, Claude).\nLLM-as-judge scoring: faithfulness, relevance, hallucination rate, latency.\nCI/CD gate blocks deployments when hallucination exceeds threshold.",
+    "section": "Project",
+    "title": "LLM Eval Harness"
+  },
+  {
+    "id": "project-image-search",
+    "text": "Image Similarity Search\nStack: Python, FastAPI, PyTorch, FAISS, Streamlit\nCLIP ViT-B-32 + FAISS ANN indexing. Sub-ms semantic image retrieval.\nHNSW/IVF indexes with recall vs latency benchmarking.",
+    "section": "Project",
+    "title": "Image Similarity Search"
+  },
+  {
+    "id": "project-neuraldocs",
+    "text": "NeuralDocs AI\nStack: FastAPI, Ollama, ChromaDB, Docker, Next.js\nLocal-first PDF intelligence. Zero data egress. docker compose up deployable.",
+    "section": "Project",
+    "title": "NeuralDocs AI"
+  },
+  {
+    "id": "project-onnxlab",
+    "text": "ONNXLab\nStack: Next.js, TypeScript, React Flow, ONNX Runtime Web\nBrowser-native ONNX graph visualization + client-side inference.\nWebGPU/WASM fallback. Dynamic tensor input pipeline.",
+    "section": "Project",
+    "title": "ONNXLab"
+  },
+  {
+    "id": "achievements",
+    "text": "Dean's List IIIT-H | KVPY Scholar 2014 (IISc) | Google Lunar X-Prize Moonbots Top-30 Finalist | JSTSE Scholar 2012",
+    "section": "Achievements",
+    "title": "Honours & Awards"
+  }
+]

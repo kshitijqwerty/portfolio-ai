@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Git
+.git/
+.gitignore
+
+# Models (downloaded on host, mounted at runtime)
+models/*.gguf
+
+# Environment (mounted at runtime via env_file)
+.env
+
+# IDE
+.idea/
+.vscode/
+
+# macOS
+.DS_Store
+
+# Qdrant binary (not needed with Docker)
+qdrant/
