@@ -23,6 +23,15 @@ INSTALL_DIR="/opt/portfolio-ai"
 
 echo "=== portfolio-ai Deploy ==="
 
+# Check disk space before starting
+AVAIL_KB=$(df /opt --output=avail 2>/dev/null | tail -1 || df / --output=avail | tail -1)
+if [ "$AVAIL_KB" -lt 3000000 ]; then
+    echo "WARNING: Less than 3 GB free disk space. Build may fail."
+    echo "  Current: $((AVAIL_KB / 1024)) MB available"
+    echo "  Suggested: free space with 'docker system prune -af' before proceeding"
+    echo ""
+fi
+
 # ─── 1. System dependencies ────────────────────────────────────────────────
 echo "[1/7] Installing system dependencies ..."
 sudo apt-get update -qq
@@ -63,7 +72,10 @@ if [ ! -f .env ]; then
 fi
 
 # ─── 6. Build & start Docker containers ────────────────────────────────────
-echo "[6/7] Building Docker images (llama.cpp from source — ~2 min) ..."
+echo "[6/7] Pruning stale Docker cache to free space ..."
+docker system prune -af --volumes 2>/dev/null || true
+
+echo "  Building Docker images (CPU-only torch, llama.cpp from source — ~2 min) ..."
 make docker-build
 echo "  Starting containers ..."
 make docker-up
