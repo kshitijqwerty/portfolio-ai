@@ -29,11 +29,14 @@
     "type": "summary",
     "org": null,
     "date_range": null,
-    "text": "ML Engineer delivering production systems across computer vision, generative AI, and cloud-native MLOps. Shipped end-to-end pipelines from sub-5MB on-device TFLite models to Kubernetes inference clusters on GCP and Azure serving Fortune-500 clients.",
+    "text": "ML Engineer with ~6 years total experience, 4 in production. Career progression across AI Engineering at a US startup (MirrorSize), founding engineer at a DRM startup (ttdsoft), graduate studies at IIIT Hyderabad, and production ML roles at Typeface (enterprise generative AI unicorn) and CARS24 (India's largest used-car marketplace). Delivers production systems across computer vision, generative AI, and cloud-native MLOps.\n\nShipped end-to-end pipelines from sub-5MB on-device TFLite models (running fully offline on Android devices with zero cloud latency) to Kubernetes inference clusters on GCP and Azure serving Fortune-500 clients. Comfortable owning the full stack: problem formulation, data annotation pipeline design (CVAT), dataset versioning, model training and evaluation, inference optimisation (ONNX, TFLite, Triton), API development (FastAPI), containerisation (Docker, Kubernetes, KServe), and production deployment with CI/CD (GitHub Actions).\n\nNotable: Dean's List at IIIT Hyderabad, KVPY Scholar (IISc). Demonstrated preference for self-hosted, offline-first, privacy-respecting infrastructure.",
     "keywords": [
       "ml engineer", "machine learning", "computer vision",
       "generative ai", "mlops", "cloud", "tflite", "kubernetes",
-      "gcp", "azure", "fortune 500", "summary", "profile", "about"
+      "gcp", "azure", "fortune 500", "summary", "profile", "about",
+      "experience", "production", "background", "overview",
+      "full stack", "end to end", "career", "cvat", "dean's list",
+      "kvpy", "self-hosted"
     ]
   },
   {
@@ -78,13 +81,14 @@
     "type": "skills",
     "org": null,
     "date_range": null,
-    "text": "Languages: Python, C, C++, JavaScript, TypeScript.\n\nAI/ML Frameworks: PyTorch, OpenCV, Scikit-Learn, ONNX, TFLite, Triton Inference Server.\n\nLLM / RAG: LangChain, Qdrant, RAGAS, LLM-as-judge, Sentence Transformers, Groq, OpenAI, Anthropic.",
+    "text": "Languages: Python (primary, 6+ years), C, C++ (DRM systems, CUDA kernels), JavaScript, TypeScript (full-stack and Electron apps).\n\nAI/ML Frameworks: PyTorch (primary deep learning framework), OpenCV (image processing pipelines), Scikit-Learn (classical ML), ONNX (model interchange and optimisation), TFLite / TensorFlow Lite (on-device mobile inference with int8 quantisation), Triton Inference Server (production model serving with auto-scaling).\n\nLLM / RAG Stack: LangChain (RAG orchestration and agentic workflows), Qdrant (production vector search), RAGAS (RAG evaluation and benchmarking), LLM-as-judge evaluation for faithfulness, relevance, and hallucination metrics, Sentence Transformers (embedding models), Groq (ultra-fast LLM inference), OpenAI API, Anthropic / Claude.",
     "keywords": [
       "python", "c", "cpp", "c++", "javascript", "typescript",
       "pytorch", "opencv", "scikit", "onnx", "tflite", "triton",
       "langchain", "qdrant", "ragas",
       "sentence transformers", "groq", "openai", "anthropic",
-      "skills", "technologies", "languages", "frameworks"
+      "skills", "technologies", "languages", "frameworks",
+      "llm", "rag", "deep learning", "embedding", "vector search"
     ]
   },
   {
@@ -94,14 +98,18 @@
     "type": "skills",
     "org": null,
     "date_range": null,
-    "text": "Web Stack: FastAPI, Django, Flask, Node.js, React.js, Next.js, Electron.js.\n\nCloud / MLOps: Docker, Kubernetes, KServe, GCP, Azure, Proxmox, GitHub Actions, CI/CD.\n\nDatabases: PostgreSQL, ChromaDB.",
+    "text": "Web & Backend: FastAPI (async handlers, SSE streaming, REST), Django (ORM-heavy applications), Flask (lightweight APIs), Node.js (DRM licensing server, encryption APIs), React.js (component-based UIs), Next.js (full-stack React with SSR), Electron.js (cross-platform desktop applications with native OS integration).\n\nCloud & MLOps: Docker (containerisation, multi-stage builds, slim images), Docker Compose (multi-service orchestration), Kubernetes (production cluster management, auto-scaling), KServe (Kubernetes-native model serving with custom predictors), GCP (GKE, Vertex AI, Cloud Build), Azure (AKS, VM-based inference), Proxmox (self-hosted hypervisor and homelab), GitHub Actions (CI/CD pipelines with quality gates).\n\nDatabases & Storage: PostgreSQL (primary relational DB), ChromaDB (embedding store for RAG), Redis (caching, semantic cache with TTL), Qdrant (production vector search), FAISS (approximate nearest neighbour indexing with HNSW, IVF).\n\nSpecialties: On-device inference optimisation (TFLite, model pruning, int8 quantisation, sub-5MB binaries), model serving (Triton, KServe, custom FastAPI containers with auto-scaling), RAG pipeline design (chunking strategies, embedding selection, hybrid search, relevance thresholding), MLOps automation (CI/CD for ML, dataset versioning, automated retraining), self-hosted and privacy-preserving AI infrastructure (Ollama, offline-first architectures).",
     "keywords": [
       "fastapi", "django", "flask", "node", "node.js", "react",
       "next.js", "electron",
-      "docker", "kubernetes", "kserve",
-      "gcp", "azure", "github actions", "postgresql",
+      "docker", "docker compose", "kubernetes", "kserve",
+      "gcp", "gke", "vertex ai", "azure", "aks",
+      "github actions", "postgresql", "redis",
       "proxmox", "ci/cd",
-      "skills", "cloud", "infrastructure", "web"
+      "skills", "cloud", "infrastructure", "web",
+      "triton", "faiss", "hnsw", "ivf", "chromadb", "qdrant",
+      "mlops", "model serving", "on-device", "self-hosted",
+      "rag", "tflite", "quantisation"
     ]
   },
   {
@@ -111,7 +119,7 @@
     "type": "experience",
     "org": "CARS24",
     "date_range": "June 2024 – June 2025",
-    "text": "ML Engineer at CARS24 (India's largest used-car marketplace, processing thousands of vehicle inspections daily across 200+ cities), Gurgaon. June 2024 – June 2025.\n\n1. Image Validation Pipeline:\nDesigned and deployed end-to-end image validation for per-part car inspection via KServe + Triton on GCP Kubernetes, cutting inspection time by 20-30 minutes per vehicle and eliminating manual review bottlenecks.\n\n2. On-device TFLite model:\nEngineered on-device TFLite model for part classification and pose detection — full binary under 5MB, enabling offline inference on Android devices with zero cloud round-trip latency.\n\n3. Underbody oil-leak detection:\nExtended damage-estimation pipeline with underbody oil-leak detection module, improving inspection coverage for a previously undetected damage category.\n\n4. Full MLOps lifecycle:\nOwned the complete MLOps lifecycle: CVAT annotation → dataset versioning → training → automated cloud deployment, eliminating manual handoffs across teams.",
+    "text": "ML Engineer at CARS24 (India's largest used-car marketplace, processing thousands of vehicle inspections daily across 200+ cities), Gurgaon. June 2024 – June 2025.\n\n1. Image Validation Pipeline:\nDesigned and deployed end-to-end image validation for per-part car inspection via KServe + Triton Inference Server on GCP Kubernetes (GKE). Validates hundreds of images per vehicle in real-time — checking for quality, completeness, and damage markers. Cut per-vehicle inspection time by 20-30 minutes, eliminating manual image review bottlenecks. Handles thousands of concurrent inspections with auto-scaling inference pods.\n\n2. On-device TFLite model:\nEngineered on-device TFLite model for part classification and pose detection — full binary under 5MB (int8 quantised, pruned, ONNX-to-TFLite converted). Runs fully offline on budget Android devices used by field inspectors across 200+ Indian cities. Zero cloud round-trip latency, sub-100ms inference per image.\n\n3. Underbody oil-leak detection:\nExtended damage-estimation pipeline with computer vision module for detecting oil leaks from underbody images. Improved damage prediction accuracy and added coverage for a previously undetected damage category.\n\n4. Full MLOps lifecycle:\nOwned complete MLOps lifecycle: CVAT annotation schema design → DVC dataset versioning → Vertex AI training → GitHub Actions automated cloud deployment. Reduced model iteration cycles from weeks to days by eliminating manual handoffs across teams.",
     "keywords": [
       "cars24", "ml engineer", "machine learning",
       "kserve", "triton", "gcp", "kubernetes", "gke",
@@ -130,7 +138,7 @@
     "type": "experience",
     "org": "Typeface India",
     "date_range": "July 2023 – March 2024",
-    "text": "Software Engineer at Typeface (enterprise generative AI platform valued at over $1B / unicorn), Hyderabad. July 2023 – March 2024.\n\n1. Fortune-500 generative image features:\nShipped production generative-image features for Fortune-500 clients (LG, Marks & Spencer, Ford), owning the full pipeline from model integration to deployed inference.\n\n2. Multi-model integration:\nIntegrated and productionised Stable Diffusion, Google ImageGen and DALL-E; built pipelines for scene generation, inpainting, outpainting, colour-palette extraction, and style-transfer at enterprise scale.\n\n3. High-availability inference:\nMaintained high-availability inference infrastructure on Azure and GCP for masking-based and generative workloads, ensuring SLA compliance for Fortune-500 clients.",
+    "text": "Software Engineer at Typeface (enterprise generative AI unicorn, $1B+ valuation), Hyderabad. July 2023 – March 2024.\n\n1. Fortune-500 generative image features:\nShipped production generative-image features for Fortune-500 clients (LG, Marks & Spencer, Ford). Owned full pipeline from model integration to deployed inference — prompt engineering, output quality evaluation, latency optimisation, and production rollout. Used in campaigns reaching millions of end-users.\n\n2. Multi-model integration:\nIntegrated and productionised Stable Diffusion (self-hosted on Azure AKS), Google ImageGen (GCP Vertex AI), and DALL-E (OpenAI). Built unified abstraction layer enabling cost/latency/quality-based model switching without changing downstream pipeline code. Pipelines included scene generation (product-in-context synthesis), inpainting (object removal), outpainting (canvas expansion), colour-palette extraction, and style-transfer.\n\n3. High-availability inference:\nMaintained inference infrastructure across Azure AKS (self-hosted models) and GCP Vertex AI (managed services). Implemented fallback routing, request queuing, and auto-scaling. Met 99.5% uptime SLA with sub-2s median latency for Fortune-500 clients.",
     "keywords": [
       "typeface", "software engineer", "generative ai", "genai",
       "stable diffusion", "imagegen", "dall-e",
@@ -149,7 +157,7 @@
     "type": "experience",
     "org": "ttdsoft",
     "date_range": "May 2020 – June 2021",
-    "text": "Founding Software Engineer at ttdsoft (early-stage DRM startup for content creators and distributors), New Delhi. May 2020 – June 2021.\n\n1. Cross-platform DRM suite:\nBuilt cross-platform DRM suite (Windows, macOS, Android) — ePendrive, Secure Browser, encrypted video player with screen-capture protection; re-architected core stack from Python to Electron.js for performance and reliability.\n\n2. Licensing and encryption API:\nDeveloped Node.js licensing and encryption API; self-hosted entire stack (DBs, APIs, email OTP) on bare-metal with zero cloud spend.",
+    "text": "Founding Software Engineer at ttdsoft (early-stage DRM startup for content creators and distributors), New Delhi. May 2020 – June 2021.\n\n1. Cross-platform DRM suite:\nBuilt DRM ecosystem spanning Windows (C++/Qt, kernel-level encryption hooks), macOS (Swift, FileVault integration), and Android (Kotlin, Android Keystore). Products included ePendrive (USB drive with hardware-locked encrypted content distribution), Secure Browser (locked-down Chromium preventing copying, printing, and screen-capture), and encrypted video player with DRM-protected streaming. Re-architected core product stack from Python (PyQt) to Electron.js (TypeScript + React), improving UI performance, reducing memory footprint, and enabling seamless cross-platform builds.\n\n2. Licensing and encryption API:\nBuilt Node.js REST API for license generation, hardware binding, and content encryption key management. Handled activation/deactivation, offline grace periods, and device limits. Self-hosted entire backend on bare-metal — PostgreSQL, API servers, email OTP, license validation — with zero cloud spend and zero vendor dependency.",
     "keywords": [
       "ttdsoft", "founding engineer", "startup", "drm", "digital rights",
       "eprendrive", "secure browser", "encrypted video player",
@@ -170,7 +178,7 @@
     "type": "experience",
     "org": "MirrorSize",
     "date_range": "May 2019 – June 2020",
-    "text": "AI Engineer at MirrorSize (US-based virtual fitting room technology startup for e-commerce), New Delhi. May 2019 – June 2020.\n\nBuilt Mask R-CNN person-segmentation pipeline for automated body-contour extraction and body-measurement estimation from single-shot images, enabling virtual fit without specialist hardware.",
+    "text": "AI Engineer at MirrorSize (US-based virtual fitting room technology startup for e-commerce), New Delhi. May 2019 – June 2020.\n\nBuilt end-to-end person-segmentation and body-measurement estimation pipeline using Mask R-CNN. Takes a single RGB image from a standard smartphone camera and performs: person segmentation (isolating person from background), body-contour extraction (identifying shoulders, waist, hips, inseam landmarks), and body-measurement estimation (predicting bust, waist, hip, and inseam dimensions from single 2D image). Enabled virtual fit recommendations without specialist 3D scanning hardware. Built with PyTorch and OpenCV, with custom post-processing for measurement regression from segmentation masks.\n\nKshitij's first professional AI/ML position — gained deep experience in full computer vision pipeline: dataset collection and curation, model training and evaluation, deployment to production inference API.",
     "keywords": [
       "mirrorsize", "ai engineer", "first job",
       "computer vision", "mask rcnn", "instance segmentation",
