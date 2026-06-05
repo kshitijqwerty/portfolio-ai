@@ -113,6 +113,26 @@
     ]
   },
   {
+    "id": "tech-stack-detailed",
+    "section": "Skills",
+    "title": "Complete Tech Stack",
+    "type": "skills",
+    "org": null,
+    "date_range": null,
+    "text": "Kshitij Gupta's complete technology stack and technical expertise:\n\nLanguages: Python, C, C++, JavaScript, TypeScript.\n\nAI/ML Frameworks: PyTorch, OpenCV, Scikit-Learn, ONNX, TFLite, Triton Inference Server, Hugging Face Transformers, Sentence Transformers.\n\nLLM / RAG: LangChain, RAGAS, LLM-as-judge, Qdrant, ChromaDB, FAISS, Ollama, Groq, OpenAI, Anthropic.\n\nWeb & Backend: FastAPI, Django, Flask, Node.js, React.js, Next.js, Electron.js, TailwindCSS.\n\nCloud & Infrastructure: Docker, Docker Compose, Kubernetes, KServe, GCP (GKE, Vertex AI, Cloud Build), Azure (AKS), Proxmox, GitHub Actions, CI/CD, systemd.\n\nDatabases: PostgreSQL, Redis, Qdrant, ChromaDB, FAISS.\n\nMLOps: Model serving (Triton, KServe), model optimisation (int8 quantisation, pruning, ONNX conversion), on-device inference (TFLite), data pipelines (CVAT, DVC), automated deployment, monitoring.\n\nSpecialties: Computer vision, generative AI, RAG systems, on-device ML, self-hosted AI infrastructure, privacy-preserving ML, MLOps automation, cross-platform desktop (Electron), DRM systems.",
+    "keywords": [
+      "tech stack", "technologies", "tools", "languages", "frameworks",
+      "python", "c", "cpp", "javascript", "typescript",
+      "pytorch", "opencv", "onnx", "tflite", "triton",
+      "langchain", "qdrant", "chromadb", "faiss", "ollama",
+      "fastapi", "django", "react", "next.js", "electron",
+      "docker", "kubernetes", "kserve", "gcp", "azure", "proxmox",
+      "postgresql", "redis",
+      "mlops", "cv", "genai", "rag", "on-device", "self-hosted",
+      "complete list", "everything", "expertise"
+    ]
+  },
+  {
     "id": "exp-cars24",
     "section": "Experience",
     "title": "CARS24 — ML Engineer",

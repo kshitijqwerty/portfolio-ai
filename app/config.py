@@ -25,6 +25,7 @@ class Settings(BaseSettings):
 
     # RAG
     rag_top_k: int = 5
+    rag_diverse_pool_size: int = 15  # fetch N, then pick diverse subset
 
     # Sampling (prevents gibberish from 0.5B models)
     temperature: float = 0.1

@@ -87,17 +87,12 @@ class RAGEngine:
             points=points,
         )
 
-    async def retrieve(self, question_embedding: np.ndarray) -> list[dict]:
-        if not self._client:
-            raise RuntimeError("Qdrant client not connected")
-
-        # query_points replaced search() in qdrant-client v2.x
+    async def _query(self, embedding: np.ndarray, limit: int) -> list[dict]:
         response = await self._client.query_points(
             collection_name=settings.qdrant_collection,
-            query=question_embedding.tolist(),
-            limit=settings.rag_top_k,
+            query=embedding.tolist(),
+            limit=limit,
         )
-
         return [
             {
                 "text": r.payload["text"],
@@ -108,6 +103,38 @@ class RAGEngine:
             }
             for r in response.points
         ]
+
+    async def retrieve(self, question_embedding: np.ndarray) -> list[dict]:
+        if not self._client:
+            raise RuntimeError("Qdrant client not connected")
+        return await self._query(question_embedding, settings.rag_top_k)
+
+    async def diverse_retrieve(self, question_embedding: np.ndarray) -> list[dict]:
+        """Fetch a larger pool then select top result per section for breadth."""
+        if not self._client:
+            raise RuntimeError("Qdrant client not connected")
+
+        results = await self._query(question_embedding, settings.rag_diverse_pool_size)
+        if not results:
+            return results
+
+        seen_sections: set[str] = set()
+        diverse: list[dict] = []
+        remaining: list[dict] = []
+
+        for r in results:
+            sec = r["section"]
+            if sec not in seen_sections:
+                diverse.append(r)
+                seen_sections.add(sec)
+            else:
+                remaining.append(r)
+
+        slots_left = settings.rag_top_k - len(diverse)
+        if slots_left > 0:
+            diverse.extend(remaining[:slots_left])
+
+        return diverse[:settings.rag_top_k]
 
     def format_context(self, chunks: list[dict]) -> str:
         parts = []

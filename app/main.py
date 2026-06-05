@@ -30,6 +30,7 @@ from app.cache import SemanticCache
 from app.config import settings
 from app.llm import LLMClient
 from app.prompt import build_prompt
+from app.query import is_broad_query, rewrite_query
 from app.rag import RAGEngine
 
 rag = RAGEngine()
@@ -91,7 +92,9 @@ async def chat(body: ChatRequest):
             media_type="text/event-stream",
         )
 
-    embed = rag.embed(question)
+    # Rewrite vague questions for better retrieval, then embed
+    search_query = rewrite_query(question)
+    embed = rag.embed(search_query)
 
     # 1. Check semantic cache
     cached = await cache.get(embed)
@@ -101,8 +104,12 @@ async def chat(body: ChatRequest):
             media_type="text/event-stream",
         )
 
-    # 2. RAG retrieval
-    chunks = await rag.retrieve(embed)
+    # 2. RAG retrieval — use section-diverse fetch for broad questions
+    broad = is_broad_query(question)
+    if broad:
+        chunks = await rag.diverse_retrieve(embed)
+    else:
+        chunks = await rag.retrieve(embed)
     if not chunks or chunks[0]["score"] < settings.rag_min_score:
         return StreamingResponse(
             _stream_cached("I don't have information about that in my knowledge base. Try asking about Kshitij's experience, skills, or projects."),
