@@ -12,6 +12,7 @@ uvicorn worker. The embedding model is far smaller than the LLM itself.
 """
 
 from typing import Optional
+import uuid
 
 import numpy as np
 from qdrant_client import AsyncQdrantClient
@@ -70,7 +71,8 @@ class RAGEngine:
         for chunk in chunks:
             vec = self._embedder.encode(chunk["text"], normalize_embeddings=True)
             points.append({
-                "id": hash(chunk["id"]),
+                # Qdrant rejects negative integers; UUID is clean and idempotent
+                "id": str(uuid.uuid5(uuid.NAMESPACE_DNS, chunk["id"])),
                 "vector": vec.tolist(),
                 "payload": {
                     "text": chunk["text"],
