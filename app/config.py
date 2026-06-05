@@ -42,7 +42,7 @@ class Settings(BaseSettings):
     cors_origin_alt: str = "http://localhost:5173"
 
     # Server
-    server_host: str = "127.0.0.1"
+    server_host: str = "0.0.0.0"
     server_port: int = 8000
 
     # Cloudflare
