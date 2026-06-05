@@ -1,0 +1,27 @@
+# Stage 1 — Build llama-server from source
+# Multi-stage keeps build deps out of the final image, saving ~300 MB.
+FROM ubuntu:24.04 AS builder
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y \
+    build-essential git cmake curl \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /build
+RUN git clone --depth 1 https://github.com/ggerganov/llama.cpp.git .
+RUN cmake -B build -DLLAMA_CUDA=OFF -DLLAMA_BLAS=OFF -DLLAMA_NATIVE=ON
+RUN cmake --build build --config Release -j$(nproc) --target llama-server
+
+# Stage 2 — Runtime image
+FROM ubuntu:24.04
+
+# libgomp1 needed for OpenMP threading
+RUN apt-get update && apt-get install -y libgomp1 && rm -rf /var/lib/apt/lists/*
+
+COPY --from=builder /build/build/bin/llama-server /usr/local/bin/llama-server
+
+EXPOSE 8080
+
+ENTRYPOINT ["llama-server"]
+CMD ["-m", "/models/model.gguf", "-c", "2048", "--threads", "4", "--mlock", "-ngl", "0", "--host", "0.0.0.0", "--port", "8080"]

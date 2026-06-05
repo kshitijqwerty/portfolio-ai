@@ -1,0 +1,79 @@
+services:
+  redis:
+    image: redis:alpine
+    restart: unless-stopped
+    networks:
+      - portfolio-net
+    expose:
+      - "6379"
+
+  qdrant:
+    image: qdrant/qdrant
+    restart: unless-stopped
+    networks:
+      - portfolio-net
+    expose:
+      - "6333"
+    volumes:
+      - qdrant_storage:/qdrant/storage
+
+  llamacpp:
+    build:
+      context: .
+      dockerfile: Dockerfile.llamacpp
+    restart: unless-stopped
+    networks:
+      - portfolio-net
+    expose:
+      - "8080"
+    volumes:
+      - ./models:/models:ro
+    # --mlock requires IPC_LOCK to pin model RAM and prevent swapping
+    cap_add:
+      - IPC_LOCK
+    # Clamp memory to stay within the 900 MB budget
+    deploy:
+      resources:
+        limits:
+          memory: 950M
+    command: >
+      -m /models/model.gguf
+      -c 2048
+      --threads 4
+      --mlock
+      -ngl 0
+      --host 0.0.0.0
+      --port 8080
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.app
+    restart: unless-stopped
+    networks:
+      - portfolio-net
+    ports:
+      - "127.0.0.1:8000:8000"
+    env_file:
+      - .env
+    environment:
+      # Docker service name defaults — overridable via .env
+      - LLM_HOST=llamacpp
+      - QDRANT_HOST=qdrant
+      - REDIS_HOST=redis
+    volumes:
+      - ./data:/app/data:ro
+    depends_on:
+      redis:
+        condition: service_started
+      qdrant:
+        condition: service_started
+      llamacpp:
+        condition: service_started
+
+networks:
+  portfolio-net:
+    driver: bridge
+
+volumes:
+  qdrant_storage:
