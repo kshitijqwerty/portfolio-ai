@@ -28,10 +28,10 @@ docker-restart: docker-down docker-up
 # ─── One-off commands inside the app container ───────────────────────────────
 
 docker-index:
-	docker compose exec app python scripts/index_resume.py
+	docker compose exec -T app python scripts/index_resume.py
 
 docker-test:
-	docker compose exec app python scripts/test_pipeline.py
+	docker compose exec -T app python scripts/test_pipeline.py
 
 # ─── Systemd for Docker Compose (auto-start on boot) ─────────────────────────
 
