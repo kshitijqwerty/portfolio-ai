@@ -90,9 +90,10 @@ class RAGEngine:
         if not self._client:
             raise RuntimeError("Qdrant client not connected")
 
-        results = await self._client.search(
+        # query_points replaced search() in qdrant-client v2.x
+        response = await self._client.query_points(
             collection_name=settings.qdrant_collection,
-            query_vector=question_embedding.tolist(),
+            query=question_embedding.tolist(),
             limit=settings.rag_top_k,
         )
 
@@ -103,7 +104,7 @@ class RAGEngine:
                 "title": r.payload["title"],
                 "score": r.score,
             }
-            for r in results
+            for r in response.points
         ]
 
     def format_context(self, chunks: list[dict]) -> str:
