@@ -24,7 +24,7 @@ class Settings(BaseSettings):
     embedding_model: str = "all-MiniLM-L6-v2"
 
     # RAG
-    rag_top_k: int = 3
+    rag_top_k: int = 5
 
     # Sampling (prevents gibberish from 0.5B models)
     temperature: float = 0.1
