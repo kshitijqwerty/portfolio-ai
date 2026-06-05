@@ -3,12 +3,11 @@
 #
 # Usage:  bash scripts/download_model.sh [model]
 #
-# Default: Qwen2-0.5B-Instruct (Q4_K_M)  — ~350 MB, fits ~900 MB budget
-# Alternative: SmolLM2-360M-Instruct     — ~230 MB, even lighter
+# Default: Qwen2-0.5B-Instruct (Q4_K_M, ~350 MB)
+# Alternative: SmolLM2-360M-Instruct (Q4_K_M, ~230 MB)
 #
-# RAM note:
-#   Q4_K_M quantisation means 4-bit weights with K_M medium-size super-block.
-#   Good quality/ size trade-off for CPU inference on i3-8100T.
+# Q4_K_M quantisation means 4-bit weights with K_M medium-size super-block.
+# Good quality/size trade-off for CPU inference.
 
 set -euo pipefail
 

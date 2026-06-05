@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# One-shot deploy script for the portfolio-ai LXC.
+# One-shot deploy script for portfolio-ai.
 #
 # Usage:  curl -fsSL https://raw.githubusercontent.com/kshitijqwerty/portfolio-ai/main/scripts/deploy_lxc.sh | bash
 #
-# Or copy and paste directly into the LXC terminal.
+# Or copy and paste directly into the server terminal.
 #
 # This script:
 #   1. Installs Docker (official convenience script) if missing
@@ -21,7 +21,7 @@ REPO="https://github.com/kshitijqwerty/portfolio-ai.git"
 BRANCH="main"
 INSTALL_DIR="/opt/portfolio-ai"
 
-echo "=== portfolio-ai LXC Deploy ==="
+echo "=== portfolio-ai Deploy ==="
 
 # ─── 1. System dependencies ────────────────────────────────────────────────
 echo "[1/7] Installing system dependencies ..."
@@ -63,7 +63,7 @@ if [ ! -f .env ]; then
 fi
 
 # ─── 6. Build & start Docker containers ────────────────────────────────────
-echo "[6/7] Building Docker images (llama.cpp from source — ~2 min on i3-8100T) ..."
+echo "[6/7] Building Docker images (llama.cpp from source — ~2 min) ..."
 make docker-build
 echo "  Starting containers ..."
 make docker-up

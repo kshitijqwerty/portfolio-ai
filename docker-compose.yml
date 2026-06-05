@@ -31,7 +31,7 @@ services:
     # --mlock requires IPC_LOCK to pin model RAM and prevent swapping
     cap_add:
       - IPC_LOCK
-    # Clamp memory to stay within the 900 MB budget
+    # Clamp memory usage
     deploy:
       resources:
         limits:
