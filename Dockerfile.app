@@ -11,6 +11,11 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /app
 
+# Install CPU-only torch FIRST so sentence-transformers doesn't pull
+# the full CUDA package (~2 GB). The default torch wheel includes cuDNN,
+# NCCN, and 100+ MB of GPU libs — all dead weight on a CPU-only LXC.
+RUN pip install torch --index-url https://download.pytorch.org/whl/cpu --no-cache-dir
+
 # Install Python deps first (cache-friendly layer ordering)
 COPY requirements.txt .
 RUN pip install --upgrade pip && pip install -r requirements.txt

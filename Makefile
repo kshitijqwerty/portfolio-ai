@@ -45,3 +45,6 @@ deploy-systemd:
 clean:
 	rm -rf models
 	docker compose down --volumes --rmi all
+
+docker-prune:
+	docker system prune -af --volumes
