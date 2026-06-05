@@ -2,7 +2,8 @@
 llama.cpp HTTP client with SSE streaming support.
 
 llama.cpp server exposes an OpenAI-compatible /v1/chat/completions endpoint.
-We use the streaming variant (stream=True) and yield tokens one by one.
+We send proper message objects and let the server apply the chat template —
+this avoids the double-wrapping bug that causes gibberish.
 
 RAM note: we use httpx for async HTTP. The client is stateless — the ~900 MB
 RAM footprint lives in the llama.cpp server process, not in this Python process.
@@ -26,16 +27,29 @@ class LLMClient:
     async def close(self) -> None:
         await self._client.aclose()
 
-    async def generate_stream(self, prompt: str) -> AsyncGenerator[str, None]:
+    async def generate_stream(
+        self, system_prompt: str, question: str
+    ) -> AsyncGenerator[str, None]:
         """
         Send a chat completion request with stream=True and yield tokens
         as they arrive from the SSE stream.
+
+        Messages are sent as proper role objects so the llama.cpp server
+        applies the correct chat template. Sampling params keep the 0.5B
+        model on track and prevent repetition loops.
         """
         payload = {
-            "messages": [{"role": "user", "content": prompt}],
+            "messages": [
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": question},
+            ],
             "stream": True,
-            "max_tokens": 512,
-            "temperature": 0.1,
+            "max_tokens": settings.max_tokens,
+            "temperature": settings.temperature,
+            "repeat_penalty": settings.repeat_penalty,
+            "top_p": settings.top_p,
+            "top_k": settings.top_k,
+            "min_p": settings.min_p,
             "stop": ["<|im_end|>"],
         }
 
@@ -60,9 +74,9 @@ class LLMClient:
                 if token:
                     yield token
 
-    async def generate(self, prompt: str) -> str:
+    async def generate(self, system_prompt: str, question: str) -> str:
         """Non-streaming variant — collects the full response."""
         tokens = []
-        async for token in self.generate_stream(prompt):
+        async for token in self.generate_stream(system_prompt, question):
             tokens.append(token)
         return "".join(tokens)

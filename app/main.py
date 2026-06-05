@@ -103,14 +103,20 @@ async def chat(body: ChatRequest):
 
     # 2. RAG retrieval
     chunks = await rag.retrieve(embed)
-    context = rag.format_context(chunks) if chunks else ""
+    if not chunks or chunks[0]["score"] < settings.rag_min_score:
+        return StreamingResponse(
+            _stream_cached("I don't have information about that in my knowledge base. Try asking about Kshitij's experience, skills, or projects."),
+            media_type="text/event-stream",
+        )
+
+    context = rag.format_context(chunks)
 
     # 3. Build prompt and stream from LLM
-    prompt = build_prompt(question, context)
+    system_prompt, user_question = build_prompt(question, context)
 
     async def generate():
         full_answer = ""
-        async for token in llm.generate_stream(prompt):
+        async for token in llm.generate_stream(system_prompt, user_question):
             full_answer += token
             yield f"data: {json.dumps({'token': token})}\n\n"
         yield "data: [DONE]\n\n"

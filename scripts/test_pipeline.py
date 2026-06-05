@@ -63,7 +63,7 @@ async def main() -> None:
     try:
         llm = LLMClient()
         tokens = []
-        async for token in llm.generate_stream("Hi."):
+        async for token in llm.generate_stream("You are a helpful assistant.", "Hi."):
             tokens.append(token)
             break  # Just one token to verify connectivity
         if tokens:
@@ -81,14 +81,14 @@ async def main() -> None:
         embed = rag.embed(question)
         chunks = await rag.retrieve(embed)
         context = rag.format_context(chunks)
-        prompt = build_prompt(question, context)
+        system_prompt, user_question = build_prompt(question, context)
 
-        print(f"  Prompt length: {len(prompt)} chars")
+        print(f"  System prompt length: {len(system_prompt)} chars")
         print(f"  Context chunks: {len(chunks)}")
         print(f"  Generating answer ...")
 
         full = ""
-        async for token in llm.generate_stream(prompt):
+        async for token in llm.generate_stream(system_prompt, user_question):
             full += token
         print(f"  Answer: {full[:200]}...")
         print(" OK")
