@@ -78,6 +78,7 @@ class RAGEngine:
                     "text": chunk["text"],
                     "section": chunk["section"],
                     "title": chunk["title"],
+                    "links": chunk.get("links", {}),
                 },
             })
 
@@ -102,6 +103,7 @@ class RAGEngine:
                 "text": r.payload["text"],
                 "section": r.payload["section"],
                 "title": r.payload["title"],
+                "links": r.payload.get("links", {}),
                 "score": r.score,
             }
             for r in response.points
@@ -113,5 +115,10 @@ class RAGEngine:
             header = f"[{i}] {c['section']}"
             if c.get("title"):
                 header += f" — {c['title']}"
-            parts.append(f"{header}\n{c['text']}")
+            text = c["text"]
+            links = c.get("links", {})
+            if links:
+                link_str = "; ".join(f"{k}: {v}" for k, v in links.items())
+                text += f"\nLinks: {link_str}"
+            parts.append(f"{header}\n{text}")
         return "\n\n".join(parts)
