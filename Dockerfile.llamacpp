@@ -20,6 +20,10 @@ FROM ubuntu:24.04
 RUN apt-get update && apt-get install -y libgomp1 && rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder /build/build/bin/llama-server /usr/local/bin/llama-server
+# llama-server loads this shared library at runtime — without it the
+# container crashes immediately with "cannot open shared object file"
+COPY --from=builder /build/build/lib/libllama-server-impl.so /usr/local/lib/
+RUN ldconfig
 
 EXPOSE 8080
 
