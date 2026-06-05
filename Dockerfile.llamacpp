@@ -11,16 +11,20 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /build
 RUN git clone --depth 1 https://github.com/ggerganov/llama.cpp.git .
 RUN cmake -B build -DLLAMA_CUDA=OFF -DLLAMA_BLAS=OFF -DLLAMA_NATIVE=ON
-RUN cmake --build build --config Release -j$(nproc) --target llama-server
+RUN cmake --build build --config Release -j$(nproc)
+# Collect all build outputs into /build/out — handles cmake putting
+# .so files in different directories depending on version/platform
+RUN mkdir -p /build/out/bin /build/out/lib && \
+    cp -v /build/build/bin/llama-server /build/out/bin/ && \
+    find /build/build -name "*.so*" -exec cp -v {} /build/out/lib/ \; || true
 
 # Stage 2 — Runtime image
 FROM ubuntu:24.04
 
-# libgomp1 needed for OpenMP threading
 RUN apt-get update && apt-get install -y libgomp1 && rm -rf /var/lib/apt/lists/*
 
-COPY --from=builder /build/build/bin/ /usr/local/bin/
-COPY --from=builder /build/build/lib/ /usr/local/lib/
+COPY --from=builder /build/out/bin/llama-server /usr/local/bin/llama-server
+COPY --from=builder /build/out/lib/ /usr/local/lib/
 RUN ldconfig
 
 EXPOSE 8080
