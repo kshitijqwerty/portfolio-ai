@@ -1,0 +1,21 @@
+[Unit]
+Description=Portfolio AI FastAPI server
+After=network.target redis.service qdrant.service llamacpp.service
+Requires=redis.service qdrant.service llamacpp.service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/portfolio-ai
+Environment=PATH=/opt/portfolio-ai/venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin
+ExecStart=/opt/portfolio-ai/venv/bin/uvicorn app.main:app \
+  --host 127.0.0.1 \
+  --port 8000 \
+  --workers 1
+Restart=on-failure
+RestartSec=5
+MemoryMax=200M
+MemoryHigh=120M
+
+[Install]
+WantedBy=multi-user.target

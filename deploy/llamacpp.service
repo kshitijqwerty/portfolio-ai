@@ -1,0 +1,24 @@
+[Unit]
+Description=llama.cpp HTTP server
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/portfolio-ai
+ExecStart=/opt/portfolio-ai/llama.cpp/build/bin/llama-server \
+  -m /opt/portfolio-ai/models/qwen2-0_5b-instruct-q4_k_m.gguf \
+  -c 2048 \
+  --threads 4 \
+  --mlock \
+  -ngl 0 \
+  --host 127.0.0.1 \
+  --port 8080
+Restart=on-failure
+RestartSec=5
+# OOM prevention: ~900 MB limit
+MemoryMax=950M
+MemoryHigh=900M
+
+[Install]
+WantedBy=multi-user.target

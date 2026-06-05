@@ -1,0 +1,17 @@
+[Unit]
+Description=Qdrant vector database
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/portfolio-ai
+ExecStart=/opt/portfolio-ai/qdrant/qdrant \
+  --uri http://127.0.0.1:6333
+Restart=on-failure
+RestartSec=5
+MemoryMax=200M
+MemoryHigh=150M
+
+[Install]
+WantedBy=multi-user.target
